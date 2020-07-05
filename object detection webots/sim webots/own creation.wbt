@@ -1,0 +1,244 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  info [
+    "The model of the E-puck robot"
+  ]
+  title "E-puck simulation"
+}
+Viewpoint {
+  orientation -0.042125652407274866 -0.9819229386649 -0.18453393165742857 2.727766388833035
+  position -0.4769714900702521 0.29582133048454745 -1.0105273253665619
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0.1 -0.11 -0.4
+  floorSize 2 2
+}
+WoodenBox {
+  translation 0.06485903351959509 -0.060392399884442644 0.5025324582975952
+  rotation -9.757441270765019e-17 1 -9.22964633927872e-17 0.4920230710829645
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation -0.75 -0.060392399884442644 -0.35
+  rotation -3.1605876138960398e-18 1 1.2140913095480861e-16 -1.3153653071795866
+  name "wooden box(1)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation 0.5161073507706306 -0.060392399884442644 0.34380042776039765
+  rotation -6.287262237707944e-18 1 5.387986011593109e-17 -1.0734092220385707
+  name "wooden box(2)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation 0.23158999844668463 -0.060392399884442644 -0.7624409878169646
+  rotation -1.0949986852548257e-16 1 -8.831460203706976e-17 -0.9475811183010139
+  name "wooden box(3)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+WoodenBox {
+  translation -0.6499875910527224 -0.060392399884442644 0.5001337865606031
+  rotation -4.1471572253209783e-17 1 1.660759135502379e-16 -0.9169132638793459
+  name "wooden box(4)"
+  size 0.1 0.1 0.1
+  mass 1
+}
+Robot {
+  translation -0.12156788623352305 -0.0704791499482186 -0.13961178276386332
+  rotation 7.647916010827395e-05 0.9999935093489314 -0.0036021397733488423 3.1024111579074476
+  children [
+    DEF Body Shape {
+      appearance PBRAppearance {
+        baseColor 0.282353 0.282353 0.282353
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.05 0.2
+      }
+    }
+    DEF cam_holder Solid {
+      translation 0 0.03 0.08
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+            metalness 0
+          }
+          geometry Box {
+            size 0.02 0.02 0.02
+          }
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 1 0
+            anchor 0 0.02 0
+          }
+          device [
+            RotationalMotor {
+              name "RM"
+            }
+          ]
+          endPoint Solid {
+            translation 0 0.02 0
+            rotation 1 -1.963397481978745e-17 0 1.57
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 0.666667 0
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.02
+                  radius 0.01
+                }
+              }
+              Camera {
+                translation 0 0.01 0
+                rotation -3.3891510791584073e-09 0.7073882252434113 -0.7068252250641434 3.14159
+                name "CAM"
+                fieldOfView 1
+                width 640
+                height 640
+              }
+            ]
+          }
+        }
+      ]
+      name "solid(5)"
+    }
+    Solid {
+      translation -3.6e-07 0 0.09
+      rotation 0 1 0 1.5708
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.239216 0.239216 0.239216
+            metalness 0
+          }
+          geometry TexturedParallelepiped {
+            size 0.07 0.07 0.1
+          }
+        }
+      ]
+      name "solid(4)"
+      boundingObject USE Body
+      physics Physics {
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -5.430557364441323
+        anchor 0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 0.05
+        rotation -0.38239418055138036 0.38208988096571134 -0.8412978150120485 4.541217562769679
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              baseColor 0.984314 1 0.0117647
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF physics_wh Physics {
+        }
+        linearVelocity 6.38094785275373e-14 1.2722295046584637e-15 -6.966560882935706e-14
+        angularVelocity -2.56240398679871e-12 -1.2039423847656674e-12 -1.2523856936144284e-13
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 5.430560442762119
+        anchor -0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 0.05
+        rotation 0.3823932278554954 -0.38208874910980706 -0.8412987620898762 4.541219136050931
+        children [
+          USE wheel
+        ]
+        name "solid(1)"
+        boundingObject USE wheel
+        physics USE physics_wh
+        linearVelocity 5.711225810691085e-14 7.067719084032678e-16 7.49245142455037e-14
+        angularVelocity 2.5736237364788878e-12 -1.204340102689361e-12 1.019430456520429e-13
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -5.43055786721748
+        anchor 0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 -0.05
+        rotation -0.38239361202028993 0.3820893128739809 -0.8412983314339598 4.541218167672099
+        children [
+          USE wheel
+        ]
+        name "solid(2)"
+        boundingObject USE wheel
+        physics USE physics_wh
+        linearVelocity -5.733815031767343e-14 2.891510253147691e-22 -7.426295451725494e-14
+        angularVelocity -3.6403399156545584e-12 -1.20428399443478e-12 -1.4612715332826818e-13
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 5.430564481945586
+        anchor -0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 -0.05
+        rotation 0.3823917760758368 -0.3820872984730563 -0.8413000807887331 4.54122068063317
+        children [
+          USE wheel
+        ]
+        name "solid(3)"
+        boundingObject USE wheel
+        physics USE physics_wh
+        linearVelocity -6.318585851886078e-14 1.0601846141161978e-16 6.997607521950415e-14
+        angularVelocity 3.656242907363251e-12 -1.2045062392670665e-12 1.50852544168935e-13
+      }
+    }
+  ]
+  boundingObject USE Body
+  physics Physics {
+  }
+  controller "Cyber_Tank"
+  linearVelocity 5.43409536551758e-14 -5.6843418860808e-17 2.06233428246802e-15
+  angularVelocity -1.103610340046321e-15 -1.2043558481940225e-12 -1.3186348522407663e-15
+}
