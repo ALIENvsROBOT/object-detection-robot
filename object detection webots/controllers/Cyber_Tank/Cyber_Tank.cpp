@@ -3,20 +3,24 @@
 #include <webots/Keyboard.hpp>
 #include <webots/Camera.hpp>
 
+
 #define TIME_STEP 64
 using namespace webots;
+
 
 int main(int argc, char **argv) {
   Robot *robot = new Robot();
   Keyboard kb;
   
+ 
   Motor *rm;
   rm=robot->getMotor("RM");
   
   Camera *cm;
   cm=robot->getCamera("CAM");
   cm->enable(TIME_STEP);
-
+  cm->recognitionEnable(TIME_STEP);
+  
   Motor *wheels[4];
   char wheels_names[4][8] = {"wheel1", "wheel2", "wheel3", "wheel4"};
   for (int i = 0; i < 4; i++) {
@@ -29,6 +33,7 @@ int main(int argc, char **argv) {
   double leftSpeed = 0.0;
   double rightSpeed = 0.0;
   double rotate=0.0;
+  
 
   while (robot->step(TIME_STEP) != -1) {
     int key=kb.getKey();
@@ -55,13 +60,14 @@ int main(int argc, char **argv) {
     wheels[3]->setVelocity(rightSpeed);
     
     if (key==65 && rotate<1.57){
-    rotate += 0.1;
+    rotate += 0.05;
     } else if (key==68 && rotate>-1.57){
-    rotate += -0.1;
+    rotate += -0.05;
     }else {
     rotate+=0;
     }
     rm->setPosition(rotate);
+ 
   }
   delete robot;
   return 0;
